@@ -22,13 +22,19 @@ public class JournalEntryService {
     private UserService userService;
 
     @Transactional
-    //transaction will make either all the operations successful or none (It act as single operation)
+    // This transaction cannot be done locally because in a local environment, the entries are saved in different databases.
+    // To enable transactions, connect to MongoDB Atlas and configure the spring.data.mongodb.uri property in application.properties with your credentials.
+    // Transactions will ensure that either all operations are successful or none are, acting as a single atomic operation.
     public void saveEntry(JournalEntry journalEntry, String userName) {
-        User user = userService.findByUserName(userName);
-        journalEntry.setDate(LocalDateTime.now());
-        JournalEntry saved = journalEntryRepository.save(journalEntry);
-        user.getJournalEntries().add(saved);
-        userService.saveEntry(user);
+        try {
+            User user = userService.findByUserName(userName);
+            journalEntry.setDate(LocalDateTime.now());
+            JournalEntry saved = journalEntryRepository.save(journalEntry);
+            user.getJournalEntries().add(saved);
+            userService.saveUser(user);
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while saving the journal entry"+e);
+        }
     }
 
     //for deleteMapping - save
@@ -44,13 +50,24 @@ public class JournalEntryService {
         return journalEntryRepository.findById(id);
     }
 
-    public void deleteJournalEntryById(ObjectId id,
+    @Transactional
+    public boolean deleteJournalEntryById(
+          ObjectId id,
           String userName
-    ) {
-        User user = userService.findByUserName(userName);
-        user.getJournalEntries().removeIf(x-> x.getId().equals(id));
-        userService.saveEntry(user);
-        journalEntryRepository.deleteById(id);
+    )
+    {
+        try {
+            boolean removed = false;
+            User user = userService.findByUserName(userName);
+            removed = user.getJournalEntries().removeIf(x -> x.getId().equals(id));
+            if (removed) {
+                userService.saveUser(user);
+                journalEntryRepository.deleteById(id);
+            }
+            return removed;
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while deleting the journal entry"+e);
+        }
     }
 
 }

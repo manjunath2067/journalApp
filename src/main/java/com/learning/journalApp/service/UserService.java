@@ -19,9 +19,13 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void saveEntry(User user) {
+    public void saveNewUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(List.of("USER"));
+        userRepository.save(user);
+    }
+    // This method is for saving user at journal time, so password is not encoded again
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 

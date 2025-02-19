@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/journalDB
+      database: journalDB
+      auto-index-creation: true
+
+logging:
+  level:
+    root: INFO

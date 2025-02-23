@@ -5,6 +5,9 @@ spring:
       database: journalDB
       auto-index-creation: true
 
+server:
+  port: 8080
+
 logging:
   level:
     root: INFO

@@ -23,7 +23,7 @@ public class JournalEntryService {
 
     @Transactional
     // This transaction cannot be done locally because in a local environment, the entries are saved in different databases.
-    // To enable transactions, connect to MongoDB Atlas and configure the spring.data.mongodb.uri property in application.properties with your credentials.
+    // To enable transactions, connect to MongoDB Atlas and configure the spring.data.mongodb.uri property in application.yml with your credentials.
     // Transactions will ensure that either all operations are successful or none are, acting as a single atomic operation.
     public void saveEntry(JournalEntry journalEntry, String userName) {
         try {

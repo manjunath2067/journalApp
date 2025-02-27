@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,8 @@ public class JournalEntityControllerV2 {
     private JournalEntryService journalEntryService;
     @Autowired
     private UserService userService;
+
+    private static final Logger logger = LoggerFactory.getLogger(JournalEntityControllerV2.class);
 
     /**
      * Retrieves all journal entries for the authenticated user.
@@ -68,6 +72,7 @@ public class JournalEntityControllerV2 {
             journalEntryService.saveEntry(entry, userName);
             return new ResponseEntity<>(entry, HttpStatus.CREATED);
         } catch (Exception e) {
+            logger.error("An error occurred while creating the journal entry", e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

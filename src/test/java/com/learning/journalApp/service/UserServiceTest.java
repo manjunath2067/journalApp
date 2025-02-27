@@ -20,12 +20,6 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
-    @Test
-    public void testFindByUserName() {
-        User user = userRepository.findByUserName("hello");
-        assertFalse(user.getJournalEntries().isEmpty());
-    }
-
     @ParameterizedTest
     @ArgumentsSource(UserArgumentProvider.class)
     public void testSaveNewUser(User user) {

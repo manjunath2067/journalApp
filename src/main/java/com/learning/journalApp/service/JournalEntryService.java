@@ -21,19 +21,35 @@ public class JournalEntryService {
     @Autowired
     private UserService userService;
 
+    /**
+     * This transaction cannot be done locally because in a local environment, the entries are saved in different
+     * databases. To enable transactions, connect to MongoDB Atlas and configure the spring.data.mongodb.uri property
+     * in application.yml with your credentials. Transactions will ensure that either all operations are successful
+     * or none are, acting as a single atomic operation.
+     *
+     * @param journalEntry
+     * @param userName
+     */
     @Transactional
-    // This transaction cannot be done locally because in a local environment, the entries are saved in different databases.
-    // To enable transactions, connect to MongoDB Atlas and configure the spring.data.mongodb.uri property in application.yml with your credentials.
-    // Transactions will ensure that either all operations are successful or none are, acting as a single atomic operation.
-    public void saveEntry(JournalEntry journalEntry, String userName) {
+    public void saveEntry(
+          JournalEntry journalEntry,
+          String userName
+    )
+    {
         try {
             User user = userService.findByUserName(userName);
             journalEntry.setDate(LocalDateTime.now());
             JournalEntry saved = journalEntryRepository.save(journalEntry);
-            user.getJournalEntries().add(saved);
+            // Ensure the journalEntries list is not null before adding the saved journal entry
+            Optional.ofNullable(user.getJournalEntries())
+                  .orElseGet(() -> {
+                      user.setJournalEntries(List.of());
+                      return user.getJournalEntries();
+                  })
+                  .add(saved);
             userService.saveUser(user);
         } catch (Exception e) {
-            throw new RuntimeException("An error occurred while saving the journal entry"+e);
+            throw new RuntimeException("An error occurred while saving the journal entry" + e);
         }
     }
 

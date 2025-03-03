@@ -1,15 +1,13 @@
 package com.learning.journalApp.controller;
 
+import com.learning.journalApp.api.response.WeatherResponse;
+import com.learning.journalApp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.learning.journalApp.entity.User;
 import com.learning.journalApp.repository.UserRepository;
@@ -23,6 +21,9 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WeatherService weatherService;
 
     /**
      * Updates the user information.
@@ -48,6 +49,17 @@ public class UserController {
         String userName = authentication.getName();
         userRepository.deleteByUserName(userName);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> greeting() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WeatherResponse weatherResponse = weatherService.getWeather("Bangalore");
+        String greeting = "";
+        if (weatherResponse != null) {
+            greeting = ", Weather feels like: " + weatherResponse.getCurrent().getFeelsLike()+" in "+ weatherResponse.getLocation().getName();
+        }
+        return new ResponseEntity<>("Hi " + authentication.getName() + greeting,HttpStatus.OK);
     }
 
 }

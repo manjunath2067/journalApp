@@ -51,16 +51,16 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping
-    public ResponseEntity<?> greeting() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        WeatherResponse weatherResponse = weatherService.getWeather("Bangalore");
-        String greeting = "";
-        if (weatherResponse != null) {
-            greeting = ", Weather feels like: " + weatherResponse.getCurrent().getFeelsLike()+" in "+ weatherResponse.getLocation().getName();
-        }
-        return new ResponseEntity<>("Hi " + authentication.getName() + greeting,HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<?> greeting() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        WeatherResponse weatherResponse = weatherService.getWeather("Bangalore");
+//        String greeting = "";
+//        if (weatherResponse != null) {
+//            greeting = ", Weather feels like: " + weatherResponse.getCurrent().getFeelsLike()+" in "+ weatherResponse.getLocation().getName();
+//        }
+//        return new ResponseEntity<>("Hi " + authentication.getName() + greeting,HttpStatus.OK);
+//    }
 
 }
 

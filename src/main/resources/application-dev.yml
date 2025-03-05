@@ -11,3 +11,7 @@ server:
 logging:
   level:
     root: INFO
+
+weather:
+  api:
+    key: b53c7c7988f652a9c4e592b3acc9c1ed

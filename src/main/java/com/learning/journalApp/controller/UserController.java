@@ -1,6 +1,5 @@
 package com.learning.journalApp.controller;
 
-import com.learning.journalApp.api.response.WeatherResponse;
 import com.learning.journalApp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,17 +49,6 @@ public class UserController {
         userRepository.deleteByUserName(userName);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-//    @GetMapping
-//    public ResponseEntity<?> greeting() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        WeatherResponse weatherResponse = weatherService.getWeather("Bangalore");
-//        String greeting = "";
-//        if (weatherResponse != null) {
-//            greeting = ", Weather feels like: " + weatherResponse.getCurrent().getFeelsLike()+" in "+ weatherResponse.getLocation().getName();
-//        }
-//        return new ResponseEntity<>("Hi " + authentication.getName() + greeting,HttpStatus.OK);
-//    }
 
 }
 

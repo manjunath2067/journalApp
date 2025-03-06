@@ -15,3 +15,7 @@ logging:
 weather:
   api:
     key: b53c7c7988f652a9c4e592b3acc9c1ed
+
+tts:
+  api:
+    key: sk_5ff93000d31e3f3c4c9252dfd0e4ead3a94ad340b4d251a8

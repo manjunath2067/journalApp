@@ -13,7 +13,7 @@ public class TextToSpeechService {
     private static final Logger logger = LoggerFactory.getLogger(TextToSpeechService.class);
     private final TextToSpeechClient textToSpeechClient;
 
-    @Value("${tts.api.key:sk_5ff93000d31e3f3c4c9252dfd0e4ead3a94ad340b4d251a8}")
+    @Value("${tts.api.key}")
     private String ttsApiKey;
 
     public TextToSpeechService(TextToSpeechClient textToSpeechClient) {

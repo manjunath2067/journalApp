@@ -19,11 +19,3 @@ weather:
 tts:
   api:
     key: sk_5ff93000d31e3f3c4c9252dfd0e4ead3a94ad340b4d251a8
-
-resilience4j:
-  ratelimiter:
-    instances:
-      createUserRateLimiter:
-        limit-for-period: 5
-        limit-refresh-period: 60s
-        timeout-duration: 2s

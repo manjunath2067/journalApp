@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class WeatherService {
 
-    @Value("${weather.api.key:b53c7c7988f652a9c4e592b3acc9c1ed}")
+    @Value("${weather.api.key}")
     private String weatherApiKey;
 
     private final WeatherClient weatherClient;

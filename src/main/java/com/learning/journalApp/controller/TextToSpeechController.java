@@ -18,21 +18,16 @@ public class TextToSpeechController {
     }
 
     @PostMapping
-    public ResponseEntity<byte[]> generateSpeech(@RequestParam String text) {
+    public ResponseEntity<String> generateSpeech(@RequestParam String text) {
         logger.info("Received text-to-speech request for text: {}", text);
 
-        byte[] audioBytes;
         try {
-            audioBytes = textToSpeechService.convertTextToSpeech(text);
+            textToSpeechService.convertTextToSpeech(text);
             logger.info("Text-to-speech conversion successful");
+            return ResponseEntity.ok("MP3 audio file has been created for this request. Please save the response as an MP3 file.");
         } catch (Exception e) {
             logger.error("Error during text-to-speech conversion", e);
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity.internalServerError().body("Error during text-to-speech conversion");
         }
-
-        return ResponseEntity.ok()
-                .header("Content-Type", "audio/mpeg")
-                .header("Content-Disposition", "inline; filename=speech.mp3")
-                .body(audioBytes);
     }
 }

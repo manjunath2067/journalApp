@@ -2,6 +2,7 @@ package com.learning.journalApp.controller;
 
 import java.util.List;
 
+import com.learning.journalApp.cache.AppCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AppCache appCache;
+
     @GetMapping("/all-users")
     public ResponseEntity<?> getAllUsers() {
         List<User> users = userService.getAll();
@@ -33,6 +37,17 @@ public class AdminController {
     @PostMapping("/create-admin-user")
     public void addAdmin(@RequestBody User user) {
         userService.saveAdmin(user);
+    }
+
+
+    /**
+     * Endpoint to clear and reinitialize the application cache.
+     * This method is useful for refreshing the cache with the latest
+     * configuration values from the database without restarting the application.
+     */
+    @GetMapping("/clear-cache")
+    public void clearCache() {
+        appCache.init();
     }
 
 }

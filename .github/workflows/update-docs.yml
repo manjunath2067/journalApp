@@ -7,7 +7,6 @@ on:
 
 jobs:
   update-docs:
-    # Prevents running on commits that include the [skip ci] flag
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +21,6 @@ jobs:
       - name: Extract current version from README.md
         id: extract_version
         run: |
-          # Assumes README.md contains a line like "Version: X.Y.Z"
           CURRENT_VERSION=$(grep -Eo 'Version: [0-9]+\.[0-9]+\.[0-9]+' README.md | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
           if [ -z "$CURRENT_VERSION" ]; then
             echo "No version found in README.md, defaulting to 0.0.0"
@@ -47,7 +45,6 @@ jobs:
           CURRENT_VERSION="${{ steps.extract_version.outputs.current_version }}"
           NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
           PREV_TAG="v$CURRENT_VERSION"
-          # If the previous tag exists, get commits since that tag; otherwise, get all commits.
           if git rev-parse "$PREV_TAG" >/dev/null 2>&1; then
             COMMITS=$(git log "$PREV_TAG"..HEAD --pretty=format:"- %s")
           else
@@ -71,7 +68,6 @@ jobs:
         run: |
           CURRENT_VERSION="${{ steps.extract_version.outputs.current_version }}"
           NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
-          # Updates the version line (assumes format "Version: X.Y.Z")
           sed -i "s/Version: $CURRENT_VERSION/Version: $NEW_VERSION/" README.md
 
       - name: Commit and push changes

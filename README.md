@@ -27,12 +27,14 @@
 - **Maven**
 - **Lombok**
 - **MongoDB**
+- **Redis**
 
 ## Prerequisites
 
 - **Java 17**
 - **Maven**
 - **MongoDB**
+- **Redis**
 
 ## Setup Instructions
 
@@ -117,11 +119,14 @@ The application can be configured through the `application.properties` or `appli
 server:
   port: 8080
 
-# MongoDB configuration
+# MongoDB and Redis configuration
 spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/journaldb
+  redis:
+    host: localhost
+    port: 6379
 
 # Security configuration
 security:

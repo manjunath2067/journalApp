@@ -1,4 +1,9 @@
 spring:
+  redis:
+    host: redis-11073.crce182.ap-south-1-1.ec2.redns.redis-cloud.com
+    port: 11073
+    username: default
+    password: ${REDIS_PASSWORD}
   data:
     mongodb:
       uri: mongodb+srv://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@cluster0.wodjz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0

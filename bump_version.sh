@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# This script handles automatic version bumping for Maven projects.
+# It increments the patch version (e.g., 0.0.1 -> 0.0.2 or 0.0.1-SNAPSHOT -> 0.0.2).
+#
+# LIMITATIONS:
+# - Currently designed for simple patch increments.
+# - Does not handle complex versioning schemes like pre-releases (alpha, beta, rc)
+#   or build metadata without modification. For such cases, a more sophisticated
+#   versioning tool or script logic would be required.
+
 set -e # Exit immediately if a command exits with a non-zero status.
 
 # Function to extract version from pom.xml
@@ -45,4 +54,4 @@ sed "s/\(\*\*Journal App\*\* - Version: \)$OLD_VERSION_REGEX/\1$NEW_VERSION/" RE
 echo "README.md updated to version $NEW_VERSION"
 
 echo "Version bump complete."
-echo "NEW_VERSION_IS:$NEW_VERSION" # Output for GitHub Action
+echo "$NEW_VERSION" > output_new_version.txt # Output new version to a file

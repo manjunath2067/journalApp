@@ -4,9 +4,10 @@ import com.learning.journalApp.entity.ConfigJournalAppEntity;
 import com.learning.journalApp.repository.ConfigJournalAppRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +24,7 @@ public class AppCacheTests {
     @Mock
     private ConfigJournalAppRepository configJournalAppRepository;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+    // @BeforeEach setUp method removed
 
     @Test
     void testInit_populatesCacheFromRepository() {

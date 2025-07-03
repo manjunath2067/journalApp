@@ -34,9 +34,10 @@ public class PublicControllerTests {
     @Test
     void testCreateUser_success_returnsOk() {
         // Arrange
-        User testUser = new User();
-        testUser.setUserName("newUser");
-        testUser.setPassword("password");
+        User testUser = User.builder()
+                .userName("newUser")
+                .password("password")
+                .build();
 
         // userService.saveNewUser returns boolean, but controller doesn't use the return value directly for response
         when(userService.saveNewUser(any(User.class))).thenReturn(true);
@@ -53,9 +54,10 @@ public class PublicControllerTests {
     @Test
     void testCreateUser_userServiceThrowsException_propagatesException() {
         // Arrange
-        User testUser = new User();
-        testUser.setUserName("newUser");
-        testUser.setPassword("password");
+        User testUser = User.builder()
+                .userName("newUser")
+                .password("password")
+                .build();
 
         when(userService.saveNewUser(any(User.class))).thenThrow(new RuntimeException("DB error"));
 
@@ -71,9 +73,10 @@ public class PublicControllerTests {
     @Test
     void testCreateUser_userServiceReturnsFalse_stillReturnsOk() {
         // Arrange
-        User testUser = new User();
-        testUser.setUserName("newUser");
-        testUser.setPassword("password");
+        User testUser = User.builder()
+                .userName("newUser")
+                .password("password")
+                .build();
 
         // Simulate a scenario where saveNewUser might return false (e.g., user already exists, not handled by exception)
         // The current controller logic doesn't check this boolean return from saveNewUser, always assumes success if no exception.

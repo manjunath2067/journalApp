@@ -32,14 +32,10 @@ public class AppCacheTests {
     void testInit_populatesCacheFromRepository() {
         // Arrange
         List<ConfigJournalAppEntity> mockConfigList = new ArrayList<>();
-        ConfigJournalAppEntity apiKeyEntry = new ConfigJournalAppEntity();
-        apiKeyEntry.setKey("WEATHER_API_KEY");
-        apiKeyEntry.setValue("test_api_key_value");
+        ConfigJournalAppEntity apiKeyEntry = new ConfigJournalAppEntity("WEATHER_API_KEY", "test_api_key_value");
         mockConfigList.add(apiKeyEntry);
 
-        ConfigJournalAppEntity anotherEntry = new ConfigJournalAppEntity();
-        anotherEntry.setKey("TTS_API_KEY");
-        anotherEntry.setValue("test_tts_key_value");
+        ConfigJournalAppEntity anotherEntry = new ConfigJournalAppEntity("TTS_API_KEY", "test_tts_key_value");
         mockConfigList.add(anotherEntry);
 
         when(configJournalAppRepository.findAll()).thenReturn(mockConfigList);
@@ -71,9 +67,7 @@ public class AppCacheTests {
         // Arrange
         // Populate cache via init()
         List<ConfigJournalAppEntity> mockConfigList = new ArrayList<>();
-        ConfigJournalAppEntity apiKeyEntry = new ConfigJournalAppEntity();
-        apiKeyEntry.setKey("EXISTING_KEY");
-        apiKeyEntry.setValue("expected_value");
+        ConfigJournalAppEntity apiKeyEntry = new ConfigJournalAppEntity("EXISTING_KEY", "expected_value");
         mockConfigList.add(apiKeyEntry);
         when(configJournalAppRepository.findAll()).thenReturn(mockConfigList);
         appCache.init();
@@ -103,9 +97,7 @@ public class AppCacheTests {
     void testGetConfigValue_keyEnumToString() {
         // Arrange
         List<ConfigJournalAppEntity> mockConfigList = new ArrayList<>();
-        ConfigJournalAppEntity apiKeyEntry = new ConfigJournalAppEntity();
-        apiKeyEntry.setKey(AppCache.keys.WEATHER_API_KEY.name()); // Use enum.name() for key
-        apiKeyEntry.setValue("weather_enum_value");
+        ConfigJournalAppEntity apiKeyEntry = new ConfigJournalAppEntity(AppCache.keys.WEATHER_API_KEY.name(), "weather_enum_value");
         mockConfigList.add(apiKeyEntry);
         when(configJournalAppRepository.findAll()).thenReturn(mockConfigList);
         appCache.init();

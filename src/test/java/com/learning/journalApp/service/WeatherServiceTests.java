@@ -37,11 +37,9 @@ public class WeatherServiceTests {
     void testGetWeather_success() {
         // Arrange
         WeatherResponse mockResponse = new WeatherResponse();
-        // Populate mockResponse with some data if necessary, or keep it simple
-        // For example:
-        WeatherResponse.Main main = new WeatherResponse.Main();
-        main.setTemp(20.0);
-        mockResponse.setMain(main);
+        WeatherResponse.Current current = new WeatherResponse.Current();
+        current.setTemperature(20); // Assuming temperature is int as per WeatherResponse.Current
+        mockResponse.setCurrent(current);
 
         when(appCache.getConfigValue(AppCache.keys.WEATHER_API_KEY.name())).thenReturn(TEST_API_KEY);
         when(weatherClient.getWeather(TEST_API_KEY, TEST_CITY)).thenReturn(mockResponse);
@@ -52,8 +50,8 @@ public class WeatherServiceTests {
         // Assert
         assertNotNull(actualResponse);
         assertEquals(mockResponse, actualResponse);
-        if (actualResponse.getMain() != null) { // Check if main part is set
-            assertEquals(20.0, actualResponse.getMain().getTemp());
+        if (actualResponse.getCurrent() != null) { // Check if current part is set
+            assertEquals(20, actualResponse.getCurrent().getTemperature());
         }
         verify(appCache, times(1)).getConfigValue(AppCache.keys.WEATHER_API_KEY.name());
         verify(weatherClient, times(1)).getWeather(TEST_API_KEY, TEST_CITY);

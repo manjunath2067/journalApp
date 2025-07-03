@@ -57,9 +57,11 @@ public class JournalEntityControllerV2Tests {
         SecurityContextHolder.setContext(securityContext);
         when(authentication.getName()).thenReturn(testUsername);
 
-        testUser = new User();
-        testUser.setUserName(testUsername);
-        testUser.setJournalEntries(new ArrayList<>());
+        testUser = User.builder()
+                .userName(testUsername)
+                .journalEntries(new ArrayList<>())
+                .roles(new ArrayList<>())
+                .build();
 
         testEntryId = new ObjectId();
         testJournalEntry = new JournalEntry();

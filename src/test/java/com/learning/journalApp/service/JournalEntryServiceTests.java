@@ -41,9 +41,11 @@ public class JournalEntryServiceTests {
     void setUp() {
         // MockitoAnnotations.openMocks(this); // Not needed if using @ExtendWith(MockitoExtension.class)
 
-        testUser = new User();
-        testUser.setUserName(testUsername);
-        testUser.setJournalEntries(new ArrayList<>()); // Initialize with an empty mutable list
+        testUser = User.builder()
+                .userName(testUsername)
+                .journalEntries(new ArrayList<>()) // Initialize with an empty mutable list
+                .roles(new ArrayList<>()) // Assuming roles might be needed/used
+                .build();
 
         testJournalEntryId = new ObjectId();
         testJournalEntry = new JournalEntry();

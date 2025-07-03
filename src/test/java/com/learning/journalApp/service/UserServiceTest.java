@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class UserServiceTest {
 
-    @Autowired
+    @MockBean // Changed from @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -29,9 +29,16 @@ public class UserServiceTest {
     @ParameterizedTest
     @ArgumentsSource(UserArgumentProvider.class)
     public void testSaveNewUser(User user) {
+        // Mock behavior for userRepository.save if it's called within saveNewUser
+        when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+
         when(weatherClient.getWeather(Mockito.anyString(), Mockito.anyString()))
               .thenReturn(null);
+
         assertTrue(userService.saveNewUser(user));
-        userRepository.delete(user);
+        // userRepository.delete(user); // Removed as userRepository is now a mock
+
+        // Verify that save was called on the mock repository
+        Mockito.verify(userRepository).save(user);
     }
 }

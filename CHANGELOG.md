@@ -1,3 +1,7 @@
+## [0.0.4] - 2025-11-30
+
+- feat: Add test coverage for AppCache to feature/add-test-coverage
+
 ## [0.0.3] - 2025-11-30
 
 - feat: Add comprehensive unit tests for WeatherService

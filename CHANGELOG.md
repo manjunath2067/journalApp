@@ -1,3 +1,7 @@
+## [0.0.11] - 2025-11-30
+
+- feat: Add test coverage for TextToSpeechController to feature/add-test-coverage
+
 ## [0.0.10] - 2025-11-30
 
 - feat: Add test coverage for TransactionConfig to feature/add-test-coverage

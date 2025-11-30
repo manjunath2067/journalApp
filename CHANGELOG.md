@@ -1,3 +1,7 @@
+## [0.0.9] - 2025-11-30
+
+- feat: Add test coverage for SecurityConfig to feature/add-test-coverage
+
 ## [0.0.8] - 2025-11-30
 
 - feat: Add test coverage for FilterConfig to feature/add-test-coverage

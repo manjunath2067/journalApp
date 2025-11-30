@@ -1,3 +1,7 @@
+## [0.0.18] - 2025-11-30
+
+- feat: Add unit tests for TextToSpeechService
+
 ## [0.0.17] - 2025-11-30
 
 - feat: Add test coverage for multiple modules

@@ -1,3 +1,7 @@
+## [0.0.15] - 2025-11-30
+
+- feat: Add test coverage for TextToSpeechRequest to feature/add-test-coverage
+
 ## [0.0.14] - 2025-11-30
 
 - feat: Add test coverage for WeatherResponse to feature/add-test-coverage

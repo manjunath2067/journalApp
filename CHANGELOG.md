@@ -1,3 +1,7 @@
+## [0.0.17] - 2025-11-30
+
+- feat: Add test coverage for multiple modules
+
 ## [0.0.16] - 2025-11-30
 
 - feat: Add test coverage for User entity to feature/add-test-coverage

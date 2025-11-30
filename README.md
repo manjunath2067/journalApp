@@ -1,6 +1,6 @@
 # Journal App
 
-**Journal App** - Version: 0.0.2-SNAPSHOT
+**Journal App** - Version: 0.0.3-SNAPSHOT
 
 **Journal App** is an end-to-end encrypted (E2EE) journal application built using Spring Boot. It provides a secure platform for users to create, read, update, and delete journal entries. The application uses MongoDB as the database and includes user authentication and authorization features.
 

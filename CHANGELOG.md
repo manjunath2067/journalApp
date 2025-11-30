@@ -1,3 +1,7 @@
+## [0.0.3] - 2025-11-30
+
+- feat: Add comprehensive unit tests for WeatherService
+
 ## [0.0.2] - 2025-07-03
 
 - Merge pull request #3 from manjunath2067/feature/auto-version-bump

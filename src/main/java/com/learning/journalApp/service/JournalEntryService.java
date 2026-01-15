@@ -40,13 +40,13 @@ public class JournalEntryService {
             User user = userService.findByUserName(userName);
             journalEntry.setDate(LocalDateTime.now());
             JournalEntry saved = journalEntryRepository.save(journalEntry);
-            // Ensure the journalEntries list is not null before adding the saved journal entry
-            Optional.ofNullable(user.getJournalEntries())
-                  .orElseGet(() -> {
-                      user.setJournalEntries(List.of());
-                      return user.getJournalEntries();
-                  })
-                  .add(saved);
+            // Ensure the journalEntries list is not null and is mutable before adding the saved journal entry
+            List<JournalEntry> entries = user.getJournalEntries();
+            if (entries == null) {
+                entries = new ArrayList<>();
+                user.setJournalEntries(entries);
+            }
+            entries.add(saved);
             userService.saveUser(user);
         } catch (Exception e) {
             throw new RuntimeException("An error occurred while saving the journal entry" + e);

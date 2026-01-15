@@ -17,6 +17,10 @@ import static org.mockito.Mockito.*;
  * Using @SpringBootTest loads all beans, allowing the use of @Autowired. To avoid loading the entire repository in the
  * class, use @InjectMocks. This approach is faster and loads only the required beans, which can be mocked using @Mock.
  */
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
 public class UserDetailsServiceImplTest {
 
     @InjectMocks
@@ -25,10 +29,7 @@ public class UserDetailsServiceImplTest {
     @Mock
     private UserRepository userRepository;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+    // @BeforeEach removed
 
     @Test
     void loadUserByUserNameTest() {

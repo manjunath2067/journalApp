@@ -1,3 +1,7 @@
+## [0.0.20] - 2026-04-23
+
+- Update README.md
+
 ## [0.0.18] - 2025-11-30
 
 - feat: Add unit tests for TextToSpeechService
